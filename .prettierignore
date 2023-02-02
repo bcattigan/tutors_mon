@@ -1,0 +1,4 @@
+.eslintignore
+.eslintrc.cjs
+package-lock.json
+tsconfig.json

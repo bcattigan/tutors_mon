@@ -1,0 +1,35 @@
+{
+  "name": "tutors_mon",
+  "version": "1.0.0",
+  "description": "Support tool for the Tutors open source project (tutors.dev)",
+  "main": "./src/tutors_mon.js",
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write .",
+    "start": "tsc --build && node ./src/tutors_mon.js && tsc --build --clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcattigan/tutors_mon.git"
+  },
+  "keywords": [
+    "tutors"
+  ],
+  "author": "Bernard Cattigan, Tutors open source project",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bcattigan/tutors_mon/issues"
+  },
+  "homepage": "https://github.com/bcattigan/tutors_mon#readme",
+  "devDependencies": {
+    "@types/node": "^18.15.3",
+    "@typescript-eslint/eslint-plugin": "^5.55.0",
+    "@typescript-eslint/parser": "^5.55.0",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.7.0",
+    "prettier": "^2.8.4",
+    "typescript": "^5.0.2"
+  }
+}
