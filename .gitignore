@@ -1,3 +1,10 @@
+# Generated ts build files
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts
+
+# gitignore template for node files from github
+
 # Logs
 logs
 *.log
