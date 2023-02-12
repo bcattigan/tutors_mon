@@ -1,6 +1,6 @@
-export const imageTypes = ["png", "jpg", "jpeg", "gif"];
+export const imageTypes = [".png", ".jpg", ".jpeg", ".gif"];
 
-export const assetTypes = imageTypes.concat(["pdf", "zip"]);
+export const assetTypes = imageTypes.concat([".pdf", ".zip"]);
 
 export class Properties {
   [key: string]: string;
@@ -49,6 +49,7 @@ export interface LearningObject {
   properties?: Properties;
   calendar?: Properties;
   hide: boolean;
+  enrollment?: string[];
 }
 
 export const loTypes = ["/note", "/book", "/archive", "/web", "/github", "/panelnote", "/paneltalk", "/panelvideo", "/talk", "/unit", "/side", "/topic"];

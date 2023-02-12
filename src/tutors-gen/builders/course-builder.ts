@@ -32,6 +32,7 @@ export const courseBuilder = {
     }
     lr.lrs.forEach((lr) => {
       lo.los.push(this.buildLo(lr, level + 1));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       lo.los.sort((a: any, b: any) => {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return preOrder.get(a.type)! - preOrder.get(b.type)!;
@@ -159,6 +160,10 @@ export const courseBuilder = {
     const calendarFile = getFileWithName(lr, "calendar.yaml");
     if (calendarFile) {
       this.lo.calendar = readYamlFile(calendarFile);
+    }
+    const enrollmentFile = getFileWithName(lr, "enrollment.yaml");
+    if (enrollmentFile) {
+      this.lo.enrollment = readYamlFile(enrollmentFile);
     }
   },
 

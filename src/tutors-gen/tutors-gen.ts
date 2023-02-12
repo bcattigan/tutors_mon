@@ -1,20 +1,25 @@
-#!/usr/bin/env node
 import * as fs from "fs";
+import path from "path";
+import chalk from "chalk";
 import { courseBuilder } from "./builders/course-builder";
 import { resourceBuilder } from "./builders/resource-builder";
-import { generateNetlifyToml } from "./utils/netlify";
-const version = `tutors-gen 2.9.12`;
+import { copyTemplateFile, errorHandling } from "./utils/utils";
 
-if (fs.existsSync("course.md")) {
-  const srcFolder = process.cwd();
-  const destFolder = `${srcFolder}/json`;
-  console.log(`Static course generator ${version}`);
-  resourceBuilder.buildTree(srcFolder);
-  courseBuilder.buildCourse(resourceBuilder.lr);
-  resourceBuilder.copyAssets(destFolder);
-  courseBuilder.generateCourse(destFolder);
-  generateNetlifyToml(destFolder);
-  console.log(`${version}`);
-} else {
-  console.log("Cannot locate course.md. Please Change to course folder and try again. ");
+export function generate(): void {
+  if (fs.existsSync("course.md")) {
+    const currentDir = process.cwd();
+    const destFolder = path.join(currentDir, "json");
+    try {
+      resourceBuilder.buildTree(currentDir);
+      courseBuilder.buildCourse(resourceBuilder.lr);
+      resourceBuilder.copyAssets(destFolder);
+      courseBuilder.generateCourse(destFolder);
+      copyTemplateFile("index.html", destFolder);
+      copyTemplateFile("netlify.toml", destFolder);
+    } catch (err) {
+      errorHandling("generate", err);
+    }
+  } else {
+    console.log(chalk.red("Cannot locate course.md. Please Change to course folder and try again."));
+  }
 }
