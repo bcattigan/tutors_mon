@@ -1,3 +1,4 @@
+import fm from "front-matter";
 import {
   getArchive,
   getFilesWithType,
@@ -15,7 +16,6 @@ import {
 } from "../utils/lr-utils";
 import { LabStep, LearningObject, LearningResource, preOrder } from "./lo-types";
 import { readWholeFile, readYamlFile, writeFile } from "../utils/utils";
-import fm from "front-matter";
 
 export const courseBuilder = {
   lo: <LearningObject>{},
