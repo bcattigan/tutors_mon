@@ -82,6 +82,7 @@ export const courseBuilder = {
     const videoids = readVideoIds(lr);
     const lo: LearningObject = {
       route: getRoute(lr),
+      routePath: getRoute(lr, true),
       type: lr.type,
       title: title,
       summary: summary,
@@ -89,11 +90,15 @@ export const courseBuilder = {
       frontMatter: frontMatter,
       id: getId(lr),
       img: getImage(lr),
+      imgPath: getImage(lr, true),
       pdf: getPdf(lr),
+      pdfPath: getPdf(lr, true),
       video: getVideo(lr, videoids.videoid),
       videoids: videoids,
       los: [],
       hide: false,
+      zip: getArchive(lr),
+      zipPath: getArchive(lr, true),
     };
     return lo;
   },
@@ -133,11 +138,13 @@ export const courseBuilder = {
         shortTitle: shortTitle,
         contentMd: contents.body,
         route: `${getRoute(lr)}/${shortTitle}`,
+        routePath: `${getRoute(lr, true)}/${shortTitle}`,
         id: shortTitle,
       };
       lo.los.push(labStep);
     });
     lo.img = getLabImage(lr);
+    lo.imgPath = getLabImage(lr, true);
     // lr.lrs = [];
     return lo;
   },
@@ -168,6 +175,6 @@ export const courseBuilder = {
   },
 
   generateCourse(outputFolder: string) {
-    writeFile(outputFolder, "tutors.json", JSON.stringify(this.lo));
+    writeFile(outputFolder, "tutors.json", JSON.stringify(this.lo, null, 2));
   },
 };
