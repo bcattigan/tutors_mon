@@ -21,6 +21,7 @@ export const resourceBuilder = {
     const tree: LearningResource = {
       courseRoot: this.root,
       route: dir,
+      routePath: dir,
       type: this.getLoType(dir),
       lrs: [],
       files: [],

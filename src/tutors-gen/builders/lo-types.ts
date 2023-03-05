@@ -19,6 +19,7 @@ export interface VideoIdentifiers {
 export interface LearningResource {
   courseRoot: string;
   route: string;
+  routePath: string;
   id: string;
   lrs: LearningResource[];
   files: Array<string>;
@@ -30,17 +31,21 @@ export interface LabStep {
   shortTitle: string;
   contentMd: string;
   route: string;
+  routePath: string;
   id: string;
 }
 
 export interface LearningObject {
   id: string;
   route: string;
+  routePath: string;
   type: string;
   title: string;
   summary: string;
   img: string;
+  imgPath: string;
   pdf: string;
+  pdfPath: string;
   contentMd: string;
   video: string;
   videoids: VideoIdentifiers;
@@ -50,6 +55,8 @@ export interface LearningObject {
   calendar?: Properties;
   hide: boolean;
   enrollment?: string[];
+  zip: string
+  zipPath: string
 }
 
 export const loTypes = ["/note", "/book", "/archive", "/web", "/github", "/panelnote", "/paneltalk", "/panelvideo", "/talk", "/unit", "/side", "/topic"];

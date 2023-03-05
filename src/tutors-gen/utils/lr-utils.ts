@@ -19,10 +19,10 @@ export function getFileWithName(lr: LearningResource, file: string) {
   return foundFilePath;
 }
 
-export function getRoute(lr: LearningResource): string {
+export function getRoute(lr: LearningResource, path = false): string {
   let route = "";
   try {
-    route = `/${lr.type}/{{COURSEURL}}${lr.route.replace(lr.courseRoot, "")}`;
+    route = path ? lr.route.replace(/\\/g, "/") : `/${lr.type}/{{COURSEURL}}${lr.route.replace(lr.courseRoot, "")}`;
   } catch (err) {
     errorHandling("getRoute", err);
   }
@@ -72,18 +72,18 @@ export function getId(lr: LearningResource): string {
   return id;
 }
 
-export function getImage(lr: LearningResource): string {
+export function getImage(lr: LearningResource, path = false): string {
   let imageFile = getFileWithType(lr, imageTypes);
   if (imageFile) {
-    imageFile = `https://{{COURSEURL}}${imageFile.replace(lr.courseRoot, "")}`;
+    imageFile = path ? imageFile.replace(/\\/g, "/") : `https://{{COURSEURL}}${imageFile.replace(lr.courseRoot, "")}`;
   }
   return imageFile;
 }
 
-export function getArchive(lr: LearningResource): string {
+export function getArchive(lr: LearningResource, path = false): string {
   let archiveFile = getFileWithType(lr, [".zip"]);
   if (archiveFile) {
-    archiveFile = `https://{{COURSEURL}}${archiveFile.replace(lr.courseRoot, "")}`;
+    archiveFile = path ? archiveFile.replace(/\\/g, "/") : `https://{{COURSEURL}}${archiveFile.replace(lr.courseRoot, "")}`;
   }
   return archiveFile;
 }
@@ -98,7 +98,7 @@ export function getGitLink(lr: LearningResource): string {
   return readFirstLineFromFile(webLinkFile);
 }
 
-export function getLabImage(lr: LearningResource): string {
+export function getLabImage(lr: LearningResource, path = false): string {
   let foundFilePath = "";
   try {
     const imageLrs = lr.lrs.filter((lr) => lr.id === "img");
@@ -106,7 +106,7 @@ export function getLabImage(lr: LearningResource): string {
       const imageFiles = getFilesWithTypes(imageLrs[0], imageTypes);
       imageFiles.forEach((filePath) => {
         if (filePath.includes("/img/main")) {
-          foundFilePath = `https://{{COURSEURL}}${filePath.replace(lr.courseRoot, "")}`;
+          foundFilePath = path ? filePath.replace(/\\/g, "/") : `https://{{COURSEURL}}${filePath.replace(lr.courseRoot, "")}`;
         }
       });
     }
@@ -116,10 +116,10 @@ export function getLabImage(lr: LearningResource): string {
   return foundFilePath;
 }
 
-export function getPdf(lr: LearningResource): string {
+export function getPdf(lr: LearningResource, path = false): string {
   let pdfFile = getFileWithType(lr, ["pdf"]);
   if (pdfFile) {
-    pdfFile = `https://{{COURSEURL}}${pdfFile.replace(lr.courseRoot, "")}`;
+    pdfFile = path ? pdfFile.replace(/\\/g, "/") : `https://{{COURSEURL}}${pdfFile.replace(lr.courseRoot, "")}`;
   }
   return pdfFile;
 }
