@@ -1,8 +1,8 @@
-import path from "path";
+import { imageTypes, LearningResource, VideoIdentifiers } from "../builders/lo-types";
+import { getFileType, getHeaderFromBody, readWholeFile, withoutHeaderFromBody, errorHandling, readFirstLineFromFile } from "./utils";
 import fm from "front-matter";
 import * as fs from "fs";
-import { imageTypes, LearningResource, VideoIdentifiers } from "../builders/lo-types";
-import { getFileType, getHeaderFromBody, readFirstLineFromFile, readWholeFile, withoutHeaderFromBody, errorHandling } from "./utils";
+import path from "path";
 
 export function getFileWithName(lr: LearningResource, file: string) {
   let foundFilePath = "";
@@ -117,7 +117,7 @@ export function getLabImage(lr: LearningResource, path = false): string {
 }
 
 export function getPdf(lr: LearningResource, path = false): string {
-  let pdfFile = getFileWithType(lr, ["pdf"]);
+  let pdfFile = getFileWithType(lr, [".pdf"]);
   if (pdfFile) {
     pdfFile = path ? pdfFile.replace(/\\/g, "/") : `https://{{COURSEURL}}${pdfFile.replace(lr.courseRoot, "")}`;
   }
@@ -160,30 +160,30 @@ export function readVideoIds(lr: LearningResource): VideoIdentifiers {
   const videoIdFile = getFileWithName(lr, "videoid");
 
   try {
-  if (videoIdFile) {
-    const entries = fs.readFileSync(videoIdFile).toString().split("\n");
+    if (videoIdFile) {
+      const entries = fs.readFileSync(videoIdFile).toString().split("\n");
 
-    entries.forEach((entry) => {
-      if (entry !== "") {
-        if (entry.includes("heanet") || entry.includes("vimp")) {
-          const array = entry.split("=");
-          const newEntry = {
-            service: array[0].replace("\r", ""),
-            id: array[1].replace("\r", "")
-          };
-          videos.videoIds.push(newEntry);
-        } else {
-          videos.videoid = entry;
-          videos.videoIds.push({ service: "youtube", id: entry });
+      entries.forEach((entry) => {
+        if (entry !== "") {
+          if (entry.includes("heanet") || entry.includes("vimp")) {
+            const array = entry.split("=");
+            const newEntry = {
+              service: array[0].replace("\r", ""),
+              id: array[1].replace("\r", "")
+            };
+            videos.videoIds.push(newEntry);
+          } else {
+            videos.videoid = entry;
+            videos.videoIds.push({ service: "youtube", id: entry });
+          }
         }
-      }
-    });
+      });
+    }
+    if (videos.videoIds.length > 0) {
+      videos.videoid = videos.videoIds[videos.videoIds.length - 1].id;
+    }
+  } catch (err) {
+    errorHandling("readVideoIds", err);
   }
-  if (videos.videoIds.length > 0) {
-    videos.videoid = videos.videoIds[videos.videoIds.length - 1].id;
-  }
-} catch (err) {
-  errorHandling("readVideoIds", err);
-}
-return videos;
+  return videos;
 }
