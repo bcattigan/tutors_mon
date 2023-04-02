@@ -55,8 +55,8 @@ export interface LearningObject {
   calendar?: Properties;
   hide: boolean;
   enrollment?: string[];
-  zip: string
-  zipPath: string
+  zip: string;
+  zipPath: string;
 }
 
 export const loTypes = ["/note", "/book", "/archive", "/web", "/github", "/panelnote", "/paneltalk", "/panelvideo", "/talk", "/unit", "/side", "/topic"];
@@ -75,5 +75,5 @@ export const preOrder = new Map([
   ["panelvideo", 11],
   ["topic", 12],
   ["unknown", 13],
-  ["", 0],
+  ["", 0]
 ]);

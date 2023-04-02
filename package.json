@@ -27,9 +27,11 @@
     "t_mon": "./src/tutors_mon.js"
   },
   "dependencies": {
+    "@types/figlet": "^1.5.5",
     "@types/js-yaml": "^4.0.5",
     "chalk": "^4.1.2",
     "chokidar": "^3.5.3",
+    "figlet": "^1.5.2",
     "front-matter": "^4.0.2",
     "js-yaml": "^4.1.0"
   },

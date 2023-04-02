@@ -1,7 +1,7 @@
-import * as fs from "fs";
-import * as yaml from "js-yaml";
-import path from "path";
 import chalk from "chalk";
+import * as fs from "fs";
+import yaml from "js-yaml";
+import path from "path";
 
 export function writeFile(folder: string, filename: string, contents: string): void {
   const outputPath = path.join(folder, filename);
@@ -21,6 +21,7 @@ export function findFirstMatchingString(strings: string[], search: string): stri
     for (const str of strings) {
       if (search.includes(str)) {
         firstMatchingString = str.slice(1);
+        return firstMatchingString;
       }
     }
   } catch (err) {
@@ -29,7 +30,7 @@ export function findFirstMatchingString(strings: string[], search: string): stri
   return firstMatchingString;
 }
 
-export function getFileName(filePath: string) {
+export function getFileName(filePath: string): string {
   let fileName = "";
   try {
     fileName = path.basename(filePath);
